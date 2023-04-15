@@ -2,9 +2,10 @@ import styled from 'styled-components/native'
 
 import { TouchableOpacity } from 'react-native'
 import { ArrowUpRight } from 'phosphor-react-native'
+import { RFValue } from 'react-native-responsive-fontsize'
 
 interface Props {
-  onDiet: boolean
+  onDiet?: boolean
 }
 
 export const Container = styled(TouchableOpacity)<Props>`
@@ -22,13 +23,13 @@ export const Container = styled(TouchableOpacity)<Props>`
 export const Title = styled.Text`
   font-family: ${({ theme }) => theme.fonts.bold};
   color: ${({ theme }) => theme.colors.gray_1};
-  font-size: 32px;
+  font-size: ${RFValue(32)}px;
 `
 
 export const Subtitle = styled.Text`
   font-family: ${({ theme }) => theme.fonts.regular};
   color: ${({ theme }) => theme.colors.gray_2};
-  font-size: 14px;
+  font-size: ${RFValue(14)}px;
 `
 
 export const Icon = styled(ArrowUpRight).attrs<Props>(({ theme, onDiet }) => ({

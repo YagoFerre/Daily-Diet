@@ -1,18 +1,20 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
-import { MEAL_KEY, NewMealTypes } from './storageConfig'
+import { MEAL_KEY } from './storageConfig'
 
 import { getAllMeals } from './getAllMeals'
+import { MealDTO } from '../utils/MealDTO'
 
-export async function updateMeal(mealUpdateById: string, meal: NewMealTypes) {
+export async function updateMeal(updatedMeal: MealDTO) {
   try {
     const storedMeals = await getAllMeals()
+    const mealId = storedMeals.findIndex((meal) => meal.id === updatedMeal.id)
 
-    const mealToUpdate = storedMeals.findIndex(
-      (meal) => meal.id === mealUpdateById,
-    )
+    storedMeals[mealId] = updatedMeal
 
-    await AsyncStorage.setItem(MEAL_KEY, JSON.stringify(mealToUpdate))
+    const storage = JSON.stringify(storedMeals)
+
+    await AsyncStorage.setItem(MEAL_KEY, storage)
   } catch (error: any) {
     throw new Error(error)
   }

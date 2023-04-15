@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components/native'
+import { RFValue } from 'react-native-responsive-fontsize'
 
 interface Props {
   onDiet?: boolean
@@ -10,7 +11,7 @@ export const Container = styled.View`
 `
 
 export const Content = styled.View`
-  padding: 40px 24px 0;
+  padding: 40px 24px;
   background-color: ${({ theme }) => theme.colors.gray_7};
 
   border-top-left-radius: 20px;
@@ -24,7 +25,7 @@ export const TimeContainer = styled.View`
 `
 
 export const TimeContent = styled.View`
-  width: 173px;
+  width: ${RFValue(153)}px;
 `
 
 export const OnDietContainer = styled.View`
@@ -35,22 +36,25 @@ export const OnDietContainer = styled.View`
 export const OnDietText = styled.Text`
   font-family: ${({ theme }) => theme.fonts.bold};
   color: ${({ theme }) => theme.colors.gray_2};
-  font-size: 14px;
+  font-size: ${RFValue(14)}px;
 
   margin-bottom: 8px;
 `
 
 export const OnDietButtonContainer = styled.View`
   width: 100%;
+  flex-direction: row;
+  flex-wrap: wrap;
+
   justify-content: space-between;
   align-items: center;
 
-  flex-direction: row;
-  margin-bottom: 48px;
+  margin-bottom: ${RFValue(48)}px;
 `
 
 export const InsideDietButton = styled.TouchableOpacity<Props>`
-  padding: 16px 69px;
+  width: ${RFValue(153)}px;
+  padding: 16px;
 
   flex-direction: row;
   justify-content: center;
@@ -70,7 +74,8 @@ export const InsideDietButton = styled.TouchableOpacity<Props>`
 `
 
 export const OutDietButton = styled.TouchableOpacity<Props>`
-  padding: 16px 69px;
+  width: ${RFValue(153)}px;
+  padding: 16px;
 
   flex-direction: row;
   justify-content: center;
@@ -106,6 +111,6 @@ export const StatusButton = styled.View<Props>`
 export const ErrorText = styled.Text`
   font-family: ${({ theme }) => theme.fonts.bold};
   color: ${({ theme }) => theme.colors.red_dark};
-  font-size: 12px;
+  font-size: ${RFValue(12)}px;
   margin-top: -14px;
 `

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 
 import {
   Text,
@@ -7,14 +7,17 @@ import {
   TouchableWithoutFeedback,
 } from 'react-native'
 
-import { useForm, Controller } from 'react-hook-form'
+import { useNavigation, useRoute } from '@react-navigation/native'
 
-import * as yup from 'yup'
-import uuid from 'react-native-uuid'
+import { useForm, Controller } from 'react-hook-form'
 
 import { Button } from '../../components/Button'
 import { HeaderScreen } from '../../components/HeaderScreen'
 import { Input } from '../../components/Input'
+import { InputDates } from '../../components/InputDates'
+
+import { MealDTO } from '../../utils/MealDTO'
+import { updateMeal } from '../../storage/updateMeal'
 
 import {
   Container,
@@ -30,64 +33,54 @@ import {
   TimeContent,
 } from './styles'
 
-import { useNavigation, useRoute } from '@react-navigation/native'
-
-import { NewMealTypes } from '../../storage/storageConfig'
-import { getAllMeals } from '../../storage/getAllMeals'
-import { updateMeal } from '../../storage/updateMeal'
-import { createNewMeal } from '../../storage/createNewMeal'
-import AsyncStorage from '@react-native-async-storage/async-storage'
-
 interface RouteParamsProps {
   id: string
+  name: string
+  description: string
+  date: string
+  hour: string
+  onDiet: boolean
 }
 
 export function EditMeal() {
-  const [currentValues, setCurrentValues] = useState<NewMealTypes>()
-
   const navigation = useNavigation()
   const route = useRoute()
 
-  const { id } = route.params as RouteParamsProps
+  const { id, name, description, date, hour, onDiet } =
+    route.params as RouteParamsProps
 
-  async function fetchCurrentValues() {
-    try {
-      const data = await getAllMeals()
-      const currentMeal = data.find((meal) => meal.id === id)
-      setCurrentValues(currentMeal)
-    } catch (error: any) {
-      throw new Error(error)
-    }
-  }
+  const [isActive, setIsActive] = useState(onDiet)
 
   const {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<NewMealTypes>({})
+  } = useForm<MealDTO>({
+    defaultValues: {
+      name,
+      description,
+      date,
+      hour,
+    },
+  })
 
-  const [isActive, setIsActive] = useState(false)
-
-  async function handleEditMeal(meal: NewMealTypes) {
+  async function handleEditMeal(meal: MealDTO) {
     try {
       const data = {
-        id: uuid.v4() as string,
+        id,
         name: meal.name,
         description: meal.description,
-        date: meal.date,
+        date: String(new Date(meal.date)),
         hour: meal.hour,
         onDiet: isActive,
       }
 
+      await updateMeal(data)
       navigation.navigate('Home')
     } catch (error: any) {
       throw new Error(error)
     }
   }
-
-  useEffect(() => {
-    fetchCurrentValues()
-  }, [id])
 
   return (
     <KeyboardAvoidingView behavior="position" enabled>
@@ -136,7 +129,13 @@ export function EditMeal() {
                   control={control}
                   rules={{ required: true }}
                   render={({ field: { onChange, value } }) => (
-                    <Input title="Data" onChangeText={onChange} value={value} />
+                    <InputDates
+                      mask="99/99/99"
+                      title="Data"
+                      onChangeText={onChange}
+                      value={value}
+                      keyboardType="numeric"
+                    />
                   )}
                   name="date"
                 />
@@ -148,7 +147,13 @@ export function EditMeal() {
                   control={control}
                   rules={{ required: true }}
                   render={({ field: { onChange, value } }) => (
-                    <Input title="Hora" onChangeText={onChange} value={value} />
+                    <InputDates
+                      mask="99:99"
+                      title="Hora"
+                      onChangeText={onChange}
+                      value={value}
+                      keyboardType="numeric"
+                    />
                   )}
                   name="hour"
                 />
@@ -163,7 +168,7 @@ export function EditMeal() {
                 <InsideDietButton
                   onDiet={true}
                   onPress={() => setIsActive(!isActive)}
-                  isActive={currentValues?.onDiet === true}
+                  isActive={isActive === true}
                 >
                   <StatusButton onDiet />
                   <Text>Sim</Text>
@@ -172,7 +177,7 @@ export function EditMeal() {
                 <OutDietButton
                   onDiet={false}
                   onPress={() => setIsActive(!isActive)}
-                  isActive={currentValues?.onDiet === false}
+                  isActive={isActive === false}
                 >
                   <StatusButton onDiet={false} />
                   <Text>Não</Text>

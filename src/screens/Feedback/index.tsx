@@ -1,5 +1,8 @@
 import React from 'react'
+
 import { Text } from 'react-native'
+
+import { useNavigation, useRoute } from '@react-navigation/native'
 
 import {
   ButtonContainer,
@@ -13,7 +16,6 @@ import girlImg from '../../assets/girl.png'
 import boyImg from '../../assets/boy.png'
 
 import { Button } from '../../components/Button'
-import { useNavigation, useRoute } from '@react-navigation/native'
 
 interface RouteProps {
   onDiet: boolean

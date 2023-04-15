@@ -5,15 +5,15 @@ import { TouchableOpacityProps } from 'react-native'
 import { Container, Icon, Subtitle, Title } from './styles'
 
 interface Props extends TouchableOpacityProps {
-  onDiet?: boolean
   title: string
+  onDiet: boolean
 }
 
-export function PercentCard({ onDiet = true, title, ...rest }: Props) {
+export function PercentCard({ title, onDiet, ...rest }: Props) {
   return (
     <Container onDiet={onDiet} {...rest}>
       <Icon onDiet={onDiet} />
-      <Title>{title}</Title>
+      <Title>{title}%</Title>
       <Subtitle>das refeições dentro da dieta</Subtitle>
     </Container>
   )

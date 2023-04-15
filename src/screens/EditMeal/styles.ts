@@ -1,5 +1,7 @@
 import styled, { css } from 'styled-components/native'
 
+import { RFValue } from 'react-native-responsive-fontsize'
+
 interface Props {
   onDiet?: boolean
   isActive?: boolean
@@ -35,7 +37,7 @@ export const OnDietContainer = styled.View`
 export const OnDietText = styled.Text`
   font-family: ${({ theme }) => theme.fonts.bold};
   color: ${({ theme }) => theme.colors.gray_2};
-  font-size: 14px;
+  font-size: ${RFValue(14)}px;
 
   margin-bottom: 8px;
 `
@@ -106,6 +108,6 @@ export const StatusButton = styled.View<Props>`
 export const ErrorText = styled.Text`
   font-family: ${({ theme }) => theme.fonts.bold};
   color: ${({ theme }) => theme.colors.red_dark};
-  font-size: 12px;
+  font-size: ${RFValue(12)}px;
   margin-top: -14px;
 `

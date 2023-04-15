@@ -2,6 +2,7 @@ import styled, { css } from 'styled-components/native'
 
 import { TouchableOpacity } from 'react-native'
 import { MaterialIcons } from '@expo/vector-icons'
+import { RFValue } from 'react-native-responsive-fontsize'
 
 export type ButtonTypeStyleProps = 'primary' | 'secondary'
 
@@ -44,5 +45,5 @@ export const Title = styled.Text<Props>`
     type === 'primary' ? theme.colors.white : theme.colors.gray_2};
 
   font-family: ${({ theme }) => theme.fonts.bold};
-  font-size: 14px;
+  font-size: ${RFValue(14)}px;
 `

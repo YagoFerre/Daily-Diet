@@ -1,4 +1,7 @@
+/* eslint-disable no-useless-escape */
 import React, { useState } from 'react'
+
+import { useNavigation } from '@react-navigation/native'
 
 import {
   Text,
@@ -16,6 +19,7 @@ import uuid from 'react-native-uuid'
 import { Button } from '../../components/Button'
 import { HeaderScreen } from '../../components/HeaderScreen'
 import { Input } from '../../components/Input'
+import { InputDates } from '../../components/InputDates'
 
 import {
   Container,
@@ -31,11 +35,8 @@ import {
   TimeContent,
 } from './styles'
 
-import { useNavigation } from '@react-navigation/native'
-
-import { NewMealTypes } from '../../storage/storageConfig'
 import { createNewMeal } from '../../storage/createNewMeal'
-import AsyncStorage from '@react-native-async-storage/async-storage'
+import { MealDTO } from '../../utils/MealDTO'
 
 const schema = yup.object().shape({
   name: yup.string().required('Insira o nome da refeição.'),
@@ -50,7 +51,7 @@ export function NewMealForm() {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<NewMealTypes>({
+  } = useForm<MealDTO>({
     resolver: yupResolver(schema),
   })
 
@@ -58,7 +59,7 @@ export function NewMealForm() {
 
   const navigation = useNavigation()
 
-  async function handleNewMeal(meal: NewMealTypes) {
+  async function handleNewMeal(meal: MealDTO) {
     try {
       const data = {
         id: uuid.v4() as string,
@@ -70,7 +71,6 @@ export function NewMealForm() {
       }
 
       await createNewMeal(data)
-
       navigation.navigate('Feedback', { onDiet: data.onDiet })
     } catch (error: any) {
       throw new Error(error)
@@ -124,7 +124,13 @@ export function NewMealForm() {
                   control={control}
                   rules={{ required: true }}
                   render={({ field: { onChange, value } }) => (
-                    <Input title="Data" onChangeText={onChange} value={value} />
+                    <InputDates
+                      mask="99/99/99"
+                      title="Data"
+                      onChangeText={onChange}
+                      value={value}
+                      keyboardType="numeric"
+                    />
                   )}
                   name="date"
                 />
@@ -136,7 +142,13 @@ export function NewMealForm() {
                   control={control}
                   rules={{ required: true }}
                   render={({ field: { onChange, value } }) => (
-                    <Input title="Hora" onChangeText={onChange} value={value} />
+                    <InputDates
+                      mask="99:99"
+                      title="Hora"
+                      onChangeText={onChange}
+                      value={value}
+                      keyboardType="numeric"
+                    />
                   )}
                   name="hour"
                 />

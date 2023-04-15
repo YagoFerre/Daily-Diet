@@ -10,9 +10,17 @@ export declare global {
       }
       EditMeal: {
         id: string
+        name: string | undefined
+        description: string | undefined
+        date: string | undefined
+        hour: string | undefined
+        onDiet: boolean | undefined
       }
       NewMealForm: undefined
-      Statistics: undefined
+      Statistics: {
+        percentageFormatted: string
+        statusOfDiet: boolean
+      }
     }
   }
 }

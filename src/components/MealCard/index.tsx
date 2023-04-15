@@ -1,9 +1,10 @@
 import React from 'react'
 
+import { useNavigation } from '@react-navigation/native'
+
 import { TouchableOpacityProps } from 'react-native'
 
 import { Container, MealContainer, MealTime, MealTitle, Status } from './styles'
-import { useNavigation } from '@react-navigation/native'
 
 interface Props extends TouchableOpacityProps {
   id: string

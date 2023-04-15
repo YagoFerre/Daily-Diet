@@ -1,10 +1,10 @@
 import React from 'react'
 
+import { useNavigation } from '@react-navigation/native'
+
 import { BackButton } from '../BackButton'
 
 import { Container, HeaderContent, HeaderTitle } from './styles'
-
-import { useNavigation } from '@react-navigation/native'
 
 interface Props {
   title: string

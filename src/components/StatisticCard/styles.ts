@@ -1,5 +1,7 @@
 import styled from 'styled-components/native'
 
+import { RFValue } from 'react-native-responsive-fontsize'
+
 interface Props {
   onDiet?: boolean
 }
@@ -24,14 +26,14 @@ export const Container = styled.View<Props>`
 export const Title = styled.Text`
   font-family: ${({ theme }) => theme.fonts.bold};
   color: ${({ theme }) => theme.colors.gray_1};
-  font-size: 24px;
+  font-size: ${RFValue(24)}px;
 `
 
 export const Subtitle = styled.Text`
   font-family: ${({ theme }) => theme.fonts.regular};
   color: ${({ theme }) => theme.colors.gray_2};
   text-align: center;
-  font-size: 14px;
+  font-size: ${RFValue(14)}px;
 
   margin-top: 8px;
 `

@@ -1,5 +1,7 @@
 import styled from 'styled-components/native'
 
+import { RFValue } from 'react-native-responsive-fontsize'
+
 interface Props {
   onDiet?: boolean
 }
@@ -24,7 +26,7 @@ export const Content = styled.View`
 export const Title = styled.Text`
   color: ${({ theme }) => theme.colors.gray_1};
   font-family: ${({ theme }) => theme.fonts.bold};
-  font-size: 20px;
+  font-size: ${RFValue(20)}px;
 
   margin-top: 40px;
 `
@@ -32,7 +34,7 @@ export const Title = styled.Text`
 export const Subtitle = styled.Text`
   color: ${({ theme }) => theme.colors.gray_2};
   font-family: ${({ theme }) => theme.fonts.regular};
-  font-size: 16px;
+  font-size: ${RFValue(16)}px;
 
   margin-top: 8px;
 `
@@ -40,7 +42,7 @@ export const Subtitle = styled.Text`
 export const DateAndHourTitle = styled.Text`
   color: ${({ theme }) => theme.colors.gray_1};
   font-family: ${({ theme }) => theme.fonts.bold};
-  font-size: 14px;
+  font-size: ${RFValue(14)}px;
 
   margin-top: 24px;
 `
@@ -48,7 +50,7 @@ export const DateAndHourTitle = styled.Text`
 export const DateAndHourSubtitle = styled.Text`
   color: ${({ theme }) => theme.colors.gray_2};
   font-family: ${({ theme }) => theme.fonts.regular};
-  font-size: 16px;
+  font-size: ${RFValue(16)}px;
 
   margin-top: 8px;
 `
@@ -81,7 +83,7 @@ export const Status = styled.View<Props>`
 export const TagText = styled.Text`
   color: ${({ theme }) => theme.colors.gray_1};
   font-family: ${({ theme }) => theme.fonts.regular};
-  font-size: 14px;
+  font-size: ${RFValue(14)}px;
 `
 
 export const ButtonContainer = styled.View`

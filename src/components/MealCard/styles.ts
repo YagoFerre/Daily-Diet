@@ -1,6 +1,7 @@
 import styled from 'styled-components/native'
 
 import { TouchableOpacity } from 'react-native'
+import { RFValue } from 'react-native-responsive-fontsize'
 
 interface Props {
   onDiet?: boolean
@@ -31,7 +32,7 @@ export const MealContainer = styled.View`
 export const MealTime = styled.Text`
   color: ${({ theme }) => theme.colors.gray_1};
   font-family: ${({ theme }) => theme.fonts.bold};
-  font-size: 12px;
+  font-size: ${RFValue(12)}px;
 
   margin-right: 12px;
 `
@@ -41,7 +42,7 @@ export const MealTitle = styled.Text`
 
   color: ${({ theme }) => theme.colors.gray_2};
   font-family: ${({ theme }) => theme.fonts.regular};
-  font-size: 16px;
+  font-size: ${RFValue(16)}px;
 
   margin-left: 12px;
 `

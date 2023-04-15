@@ -1,6 +1,6 @@
 import styled from 'styled-components/native'
 
-import { TextInput } from 'react-native'
+import { MaskedTextInput } from 'react-native-mask-text'
 import { RFValue } from 'react-native-responsive-fontsize'
 
 export const Container = styled.View`
@@ -15,7 +15,7 @@ export const InputLabel = styled.Text`
   margin-bottom: 4px;
 `
 
-export const InputForm = styled(TextInput)`
+export const InputForm = styled(MaskedTextInput)`
   padding: 14px;
 
   border-width: 1px;

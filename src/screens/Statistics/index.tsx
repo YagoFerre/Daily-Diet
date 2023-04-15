@@ -1,4 +1,6 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+
+import { useNavigation, useRoute } from '@react-navigation/native'
 
 import {
   Container,
@@ -15,25 +17,49 @@ import {
 import { BackButton } from '../../components/BackButton'
 import { StatisticCard } from '../../components/StatisticCard'
 
-import { useNavigation } from '@react-navigation/native'
+import { mealsStatistics } from '../../utils/mealsStatistics'
 
-interface Props {
-  onDiet?: boolean
+interface StatisticProps {
+  inDiet: number
+  outDiet: number
+  total: number
+  sequence: number
 }
 
-export function Statistics({ onDiet = true }: Props) {
+interface RouteParamsProps {
+  percentageFormatted: string
+  statusOfDiet: boolean
+}
+
+export function Statistics() {
+  const [statistics, setStatistics] = useState<StatisticProps>(
+    {} as StatisticProps,
+  )
+
   const navigation = useNavigation()
+  const route = useRoute()
+
+  const { percentageFormatted, statusOfDiet } = route.params as RouteParamsProps
 
   function handleBack() {
     navigation.goBack()
   }
 
+  useEffect(() => {
+    async function fetchStatistics() {
+      const result = await mealsStatistics()
+      setStatistics(result)
+    }
+
+    fetchStatistics()
+  }, [])
+
   return (
-    <Container onDiet={onDiet}>
+    <Container onDiet={statusOfDiet}>
       <Header>
-        <BackButton onDiet onPress={handleBack} />
+        <BackButton onDiet={statusOfDiet} onPress={handleBack} />
         <HeaderContent>
-          <Title>90,86%</Title>
+          <Title>{percentageFormatted}%</Title>
           <Subtitle>das refeições dentro da dieta</Subtitle>
         </HeaderContent>
       </Header>
@@ -41,15 +67,18 @@ export function Statistics({ onDiet = true }: Props) {
       <Content>
         <StatisticsTitle>Estatísticas gerais</StatisticsTitle>
         <StatisticCard
-          mealNumbers={22}
+          mealNumbers={statistics.sequence}
           title="melhor sequência de pratos dentro da dieta"
         />
-        <StatisticCard mealNumbers={109} title="refeições registradas" />
+        <StatisticCard
+          mealNumbers={statistics.total}
+          title="refeições registradas"
+        />
 
         <StatisticCardContainer>
           <StatisticBox>
             <StatisticCard
-              mealNumbers={99}
+              mealNumbers={statistics.inDiet}
               title="refeições dentro da dieta"
               onDiet
             />
@@ -57,7 +86,7 @@ export function Statistics({ onDiet = true }: Props) {
 
           <StatisticBox>
             <StatisticCard
-              mealNumbers={10}
+              mealNumbers={statistics.outDiet}
               title="refeições fora da dieta"
               onDiet={false}
             />

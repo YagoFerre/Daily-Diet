@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react'
+
 import { View } from 'react-native'
+
+import { useNavigation, useRoute } from '@react-navigation/native'
 
 import { Button } from '../../components/Button'
 import { HeaderScreen } from '../../components/HeaderScreen'
@@ -19,17 +22,16 @@ import {
   Title,
 } from './styles'
 
-import { NewMealTypes } from '../../storage/storageConfig'
 import { getAllMeals } from '../../storage/getAllMeals'
-import { useNavigation, useRoute } from '@react-navigation/native'
 import { removeMeal } from '../../storage/removeMeal'
+import { MealDTO } from '../../utils/MealDTO'
 
 interface RouteParamsProps {
   id: string
 }
 
 export function Meal() {
-  const [mealDetails, setMealDetails] = useState<NewMealTypes>()
+  const [mealDetails, setMealDetails] = useState<MealDTO>()
   const [isModalVisible, setModalVisible] = useState(false)
 
   const navigation = useNavigation()
@@ -62,7 +64,14 @@ export function Meal() {
 
   function handleEditMeal() {
     try {
-      navigation.navigate('EditMeal', { id })
+      navigation.navigate('EditMeal', {
+        id,
+        name: mealDetails?.name,
+        description: mealDetails?.description,
+        date: mealDetails?.date,
+        hour: mealDetails?.hour,
+        onDiet: mealDetails?.onDiet,
+      })
     } catch (error: any) {
       throw new Error(error)
     }

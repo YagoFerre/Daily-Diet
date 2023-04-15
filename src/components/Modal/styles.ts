@@ -2,6 +2,8 @@ import styled from 'styled-components/native'
 
 import Modal from 'react-native-modal'
 
+import { RFValue } from 'react-native-responsive-fontsize'
+
 export const Container = styled(Modal)`
   justify-content: center;
   align-items: center;
@@ -23,7 +25,7 @@ export const Title = styled.Text`
 
   color: ${({ theme }) => theme.colors.gray_2};
   font-family: ${({ theme }) => theme.fonts.bold};
-  font-size: 18px;
+  font-size: ${RFValue(18)}px;
   text-align: center;
 
   margin-top: 20px;

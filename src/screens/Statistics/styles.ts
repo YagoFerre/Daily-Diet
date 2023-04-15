@@ -1,5 +1,7 @@
 import styled from 'styled-components/native'
 
+import { RFValue } from 'react-native-responsive-fontsize'
+
 interface Props {
   onDiet: boolean
 }
@@ -31,7 +33,7 @@ export const HeaderContent = styled.View`
 export const Title = styled.Text`
   font-family: ${({ theme }) => theme.fonts.bold};
   color: ${({ theme }) => theme.colors.gray_1};
-  font-size: 32px;
+  font-size: ${RFValue(32)}px;
 
   margin-top: 12px;
 `
@@ -39,7 +41,7 @@ export const Title = styled.Text`
 export const Subtitle = styled.Text`
   font-family: ${({ theme }) => theme.fonts.regular};
   color: ${({ theme }) => theme.colors.gray_2};
-  font-size: 14px;
+  font-size: ${RFValue(14)}px;
 `
 
 export const Content = styled.View`
@@ -54,7 +56,7 @@ export const Content = styled.View`
 export const StatisticsTitle = styled.Text`
   font-family: ${({ theme }) => theme.fonts.bold};
   color: ${({ theme }) => theme.colors.gray_1};
-  font-size: 14px;
+  font-size: ${RFValue(14)}px;
 
   text-align: center;
   margin-top: 32px;
@@ -69,5 +71,5 @@ export const StatisticCardContainer = styled.View`
 `
 
 export const StatisticBox = styled.View`
-  width: 170px;
+  width: ${RFValue(157)}px;
 `
